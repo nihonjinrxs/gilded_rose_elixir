@@ -7,6 +7,17 @@ defmodule GildedRose do
     Enum.map(items, &update_item/1)
   end
 
+  def update_item(item = %Item{quality: 0}) do
+    %Item{ item | sell_in: item.sell_in - 1 }
+  end
+  def update_item(item = %Item{sell_in: s, quality: q}) when s < 0 do
+    %Item{ item | sell_in: item.sell_in - 1,
+                  quality: max(q - 2, 0) }
+  end
+  def update_item(item = %Item{quality: q, sell_in: s}) do
+    %Item{ item | sell_in: s - 1, quality: q - 1 }
+  end
+
   def update_item(item) do
     cond do
       item.quality == 0 ->
