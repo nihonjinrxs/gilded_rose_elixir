@@ -45,8 +45,7 @@ defmodule GildedRoseTest do
 
     test "when quality is 0, quality doesn't decrease anymore" do
       item = %Item{ @some_item | quality: 0 }
-      expected = %Item{ @some_item | sell_in: item.sell_in - 1,
-                                     quality: 0 }
+      expected = item
       assert update_item(item) == expected
     end
 

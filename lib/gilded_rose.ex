@@ -8,7 +8,7 @@ defmodule GildedRose do
   end
 
   def update_item(item = %Item{quality: 0}) do
-    %Item{ item | sell_in: item.sell_in - 1 }
+    item
   end
   def update_item(item = %Item{sell_in: s, quality: q}) when s < 0 do
     %Item{ item | sell_in: item.sell_in - 1,
@@ -20,8 +20,6 @@ defmodule GildedRose do
 
   def update_item(item) do
     cond do
-      item.quality == 0 ->
-        item
       item.sell_in < 0 && item.name == "Backstage passes to a TAFKAL80ETC concert" ->
         %{item | quality: 0}
       item.name == "Aged Brie" || item.name == "Backstage passes to a TAFKAL80ETC concert" ->
